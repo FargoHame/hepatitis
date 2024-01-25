@@ -34,7 +34,7 @@ st.write(df.describe())
 
 
 #training
-x = df.drop(['Outcome'], axis = 1)
+x = df.drop(['Outcome', 'Serum Cholinesterase\t'], axis = 1)
 y = df.iloc[:, -1]
 x_train, x_test, y_train, y_test = train_test_split(x,y, test_size = 0.9, random_state = 0)
 lab_enc = preprocessing.LabelEncoder()
@@ -49,7 +49,6 @@ def user_report():
   Alanine_Aminotransferase = st.sidebar.slider('Alanine Aminotransferase', 0,330, 30)
   Aspartate_Aminotransferase = st.sidebar.slider('Aspartate Aminotransferase', 10,330, 40)
   Bilirubin = st.sidebar.slider('Bilirubin', 0,260, 12)
-  Serum_Cholinesterase = st.sidebar.slider('Serum Cholinesterase', 0,20, 11)
   Cholestrol = st.sidebar.slider('Cholestrol', 0,10, 5)
   Creatinine = st.sidebar.slider('Creatinine', 0,1200, 80)
   Gamma_Glutamyl_Transferase = st.sidebar.slider('Gamma-Glutamyl Transferase', 0,700, 42)
@@ -66,7 +65,6 @@ def user_report():
       'Alanine Aminotransferase':Alanine_Aminotransferase,
       'Aspartate Aminotransferase':Aspartate_Aminotransferase,
       'Bilirubin':Bilirubin,
-      'Serum Cholinesterase':Serum_Cholinesterase,
       'Cholestrol':Cholestrol,
       'Creatinine':Creatinine,
       'Gamma-Glutamyl Transferase':Gamma_Glutamyl_Transferase,
@@ -89,7 +87,6 @@ st.write(user_data)
 
 rf  = RandomForestClassifier()
 rf.fit(x_train, training_scores_encoded)
-user_data['Serum Cholinesterase'] = default_value 
 user_result = rf.predict(user_data)
 
 
@@ -159,14 +156,15 @@ plt.yticks(np.arange(0,300,20))
 plt.title('0 - Healthy, 1 - Hepatitis, 2 - Fibrosis, 3 - Cirrhosis')
 st.pyplot(fig_Bilirubin)
 
-st.header('Serum Cholinesterase	 Value Graph (Yours vs Others)')
-fig_Serum_Cholinesterase = plt.figure()
-ax13 = sns.scatterplot(x = 'Age', y = 'Serum Cholinesterase	', data = df, hue = 'Outcome', palette='magma')
-ax14 = sns.scatterplot(x = user_data['Age'], y = user_data['Serum Cholinesterase'], s = 150, color = color)
-plt.xticks(np.arange(0,100,5))
-plt.yticks(np.arange(0,20,1))
-plt.title('0 - Healthy, 1 - Hepatitis, 2 - Fibrosis, 3 - Cirrhosis')
-st.pyplot(fig_Serum_Cholinesterase)
+# I have removed Serum Cholinesterase becaunse it was a faulty feature
+#st.header('Serum Cholinesterase	 Value Graph (Yours vs Others)') 
+#fig_Serum_Cholinesterase = plt.figure()
+#ax13 = sns.scatterplot(x = 'Age', y = 'Serum Cholinesterase	', data = df, hue = 'Outcome', palette='magma')
+#ax14 = sns.scatterplot(x = user_data['Age'], y = user_data['Serum Cholinesterase'], s = 150, color = color)
+#plt.xticks(np.arange(0,100,5))
+#plt.yticks(np.arange(0,20,1))
+#plt.title('0 - Healthy, 1 - Hepatitis, 2 - Fibrosis, 3 - Cirrhosis')
+#st.pyplot(fig_Serum_Cholinesterase)
 
 st.header('Cholestrol Value Graph (Yours vs Others)')
 fig_Cholestrol = plt.figure()
