@@ -11,6 +11,8 @@ import seaborn as sns
 from PIL import Image
 from sklearn import preprocessing
 
+default_value = 0
+
 #about 
 st.markdown('''
 # Liver Disease Detector 
