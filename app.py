@@ -87,6 +87,7 @@ st.write(user_data)
 
 rf  = RandomForestClassifier()
 rf.fit(x_train, training_scores_encoded)
+user_data['Serum Cholinesterase'] = default_value 
 user_result = rf.predict(user_data)
 
 
